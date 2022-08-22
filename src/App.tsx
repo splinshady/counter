@@ -7,6 +7,8 @@ function App() {
     const [initialCount, setInitialCount] = useState(0)
     const [count, setCount] = useState(initialCount)
     const [maxValue, setMaxValue] = useState(5)
+    const [error, setError] = useState(false)
+    const [settingActive, setSettingActive] = useState(false)
 
     useEffect(() => {
         let countStorage = localStorage.getItem('count')
@@ -16,7 +18,6 @@ function App() {
         initialCountStorage && setInitialCount(JSON.parse(initialCountStorage))
         maxValueStorage && setMaxValue(JSON.parse(maxValueStorage))
     }, [])
-
     useEffect(() => {
         localStorage.setItem('count', JSON.stringify(count))
     }, [count])
@@ -34,11 +35,16 @@ function App() {
                       setInitialCount={setInitialCount}
                       setMaxValue={setMaxValue}
                       setCount={setCount}
+                      setError={setError}
+                      setSettingActive={setSettingActive}
+                      settingActive={settingActive}
             />
             <Counter count={count}
                      maxValue={maxValue}
                      setCount={setCount}
                      initialCount={initialCount}
+                     error={error}
+                     settingActive={settingActive}
             />
         </div>
     );

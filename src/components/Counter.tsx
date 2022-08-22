@@ -8,17 +8,23 @@ type CounterPropsType = {
     maxValue: number,
     setCount: (count: number) => void,
     initialCount: number,
+    error: boolean,
+    settingActive: boolean,
 }
 
-const Counter: React.FC<CounterPropsType> = ({count, maxValue, setCount, initialCount}) => {
+const Counter: React.FC<CounterPropsType> = (props) => {
 
     return (
         <div className={style.counter}>
-            <Display count={count} maxValue={maxValue}/>
-            <Control setCount={setCount}
-                     count={count}
-                     maxValue={maxValue}
-                     initialCount={initialCount}
+            <Display count={props.count}
+                     maxValue={props.maxValue}
+                     error={props.error}
+                     settingActive={props.settingActive}
+            />
+            <Control setCount={props.setCount}
+                     count={props.count}
+                     maxValue={props.maxValue}
+                     initialCount={props.initialCount}
             />
         </div>
     );
