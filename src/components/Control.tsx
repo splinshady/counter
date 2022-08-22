@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Button from "./Button";
 import style from './style.module.css';
 
@@ -6,15 +6,17 @@ type ControlPropsType = {
     setCount: (count: number) => void,
     count: number,
     maxValue: number,
+    initialCount: number,
 }
 
 const Control: React.FC<ControlPropsType> = (props) => {
+
     const incrementCallback = () => {
         props.maxValue > props.count && props.setCount(props.count + 1)
     }
 
     const resetCallback = () => {
-        props.setCount(0)
+        props.setCount(props.initialCount)
     }
 
 

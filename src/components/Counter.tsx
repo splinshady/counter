@@ -1,11 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Display from "./Display";
 import Control from "./Control";
 import style from "./style.module.css";
 
-const Counter = () => {
-    const [count, setCount] = useState(0)
-    const [maxValue, setMaxValue] = useState(5)
+type CounterPropsType = {
+    count: number,
+    maxValue: number,
+    setCount: (count: number) => void,
+    initialCount: number,
+}
+
+const Counter: React.FC<CounterPropsType> = ({count, maxValue, setCount, initialCount}) => {
 
     return (
         <div className={style.counter}>
@@ -13,6 +18,7 @@ const Counter = () => {
             <Control setCount={setCount}
                      count={count}
                      maxValue={maxValue}
+                     initialCount={initialCount}
             />
         </div>
     );

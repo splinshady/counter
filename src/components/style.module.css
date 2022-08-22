@@ -14,8 +14,20 @@
     font-size: 3em;
     font-weight: bold;
     color: #69e5f7;
-    width: 200px;
-    height: 80px;
+    width: 300px;
+    height: 100px;
+    border: 2px solid #69e5f7;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.input_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    color: #69e5f7;
+    width: 300px;
+    height: 100px;
     border: 2px solid #69e5f7;
     padding: 10px;
     border-radius: 5px;
@@ -43,3 +55,9 @@
 .max_value {
     color: red;
 }
+
+.input {
+    display: flex;
+    justify-content: space-between;
+}
+
