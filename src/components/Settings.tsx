@@ -8,6 +8,7 @@ type SettingsPropsType = {
     initialCount: number,
     setInitialCount: (value: number) => void,
     setMaxValue: (value: number) => void,
+    setCount: (value: number) => void,
 }
 
 const Settings: React.FC<SettingsPropsType> = (props) => {
@@ -17,20 +18,21 @@ const Settings: React.FC<SettingsPropsType> = (props) => {
     const setSettings = () => {
         props.setInitialCount(inputInitialCount)
         props.setMaxValue(inputMaxValue)
+        props.setCount(inputInitialCount)
     }
 
     useEffect(() => {
-        let initialCountStorage = localStorage.getItem('initialCount')
-        let maxValueStorage = localStorage.getItem('maxValue')
+        let initialCountStorage = localStorage.getItem('settingsInitialCount')
+        let maxValueStorage = localStorage.getItem('settingsMaxValue')
         initialCountStorage && setInputInitialCount(JSON.parse(initialCountStorage))
         maxValueStorage && setInputMaxValue(JSON.parse(maxValueStorage))
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('initialCount', JSON.stringify(inputInitialCount))
+        localStorage.setItem('settingsInitialCount', JSON.stringify(inputInitialCount))
     }, [inputInitialCount])
     useEffect(() => {
-        localStorage.setItem('maxValue', JSON.stringify(inputMaxValue))
+        localStorage.setItem('settingsMaxValue', JSON.stringify(inputMaxValue))
     }, [inputMaxValue])
 
     return (
