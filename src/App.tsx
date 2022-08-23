@@ -30,23 +30,26 @@ function App() {
 
     return (
         <div className="App">
-            <Settings initialCount={initialCount}
-                      maxValue={maxValue}
-                      setInitialCount={setInitialCount}
-                      setMaxValue={setMaxValue}
-                      setCount={setCount}
-                      setError={setError}
-                      setSettingActive={setSettingActive}
-                      settingActive={settingActive}
-                      error={error}
-            />
-            <Counter count={count}
-                     maxValue={maxValue}
-                     setCount={setCount}
-                     initialCount={initialCount}
-                     error={error}
-                     settingActive={settingActive}
-            />
+            {settingActive ?
+                <Settings initialCount={initialCount}
+                          maxValue={maxValue}
+                          setInitialCount={setInitialCount}
+                          setMaxValue={setMaxValue}
+                          setCount={setCount}
+                          setError={setError}
+                          setSettingActive={setSettingActive}
+                          settingActive={settingActive}
+                          error={error}
+                />
+                :
+                <Counter count={count}
+                         maxValue={maxValue}
+                         setCount={setCount}
+                         initialCount={initialCount}
+                         error={error}
+                         settingActive={settingActive}
+                         setSettingActive={setSettingActive}
+                />}
         </div>
     );
 }

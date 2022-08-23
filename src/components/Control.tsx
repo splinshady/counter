@@ -8,6 +8,7 @@ type ControlPropsType = {
     maxValue: number,
     initialCount: number,
     settingActive: boolean,
+    setSettingActive: (value: boolean) => void,
 }
 
 const Control: React.FC<ControlPropsType> = (props) => {
@@ -29,11 +30,16 @@ const Control: React.FC<ControlPropsType> = (props) => {
         props.setCount(props.initialCount)
     }
 
+    const activeSettingsCallback = () => {
+        props.setSettingActive(true)
+    }
+
 
     return (
         <div className={style.control}>
             <Button disabled={disabled || props.settingActive} name={'inc'} callback={incrementCallback}/>
             <Button disabled={props.settingActive} name={'reset'} callback={resetCallback}/>
+            <Button name={'set'} callback={activeSettingsCallback}/>
         </div>
     );
 };

@@ -6,8 +6,6 @@ type InputPropsType = {
     callback: (value: number) => void,
     value: number,
     error: boolean,
-    blurHandler: () => void
-    focusHandler: () => void
 }
 
 const Input: React.FC<InputPropsType> = (props) => {
@@ -24,8 +22,6 @@ const Input: React.FC<InputPropsType> = (props) => {
                    className={classes}
                    type="number"
                    value={props.value}
-                   onBlur={props.blurHandler}
-                   onFocus={props.focusHandler}
             />
         </label>
     );

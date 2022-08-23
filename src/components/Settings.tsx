@@ -23,6 +23,7 @@ const Settings: React.FC<SettingsPropsType> = (props) => {
         props.setInitialCount(inputInitialCount)
         props.setMaxValue(inputMaxValue)
         props.setCount(inputInitialCount)
+        props.setSettingActive(false)
     }
 
     useEffect(() => {
@@ -48,12 +49,6 @@ const Settings: React.FC<SettingsPropsType> = (props) => {
         }
         setInputMaxValue(value)
     }
-    const blurHandler = () => {
-        props.setSettingActive(false)
-    }
-    const focusHandler = () => {
-        props.setSettingActive(true)
-    }
 
     return (
         <div className={style.counter}>
@@ -61,16 +56,12 @@ const Settings: React.FC<SettingsPropsType> = (props) => {
                 <Input name={'max value'}
                        callback={maxValueChangeHandler}
                        value={inputMaxValue}
-                       blurHandler={blurHandler}
-                       focusHandler={focusHandler}
                        error={props.error}
                 />
 
                 <Input name={'start value'}
                        callback={InitialCountChangeHandler}
                        value={inputInitialCount}
-                       blurHandler={blurHandler}
-                       focusHandler={focusHandler}
                        error={props.error}
                 />
             </div>

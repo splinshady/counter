@@ -1,12 +1,10 @@
 import React from 'react';
 import style from './style.module.css';
-import {Simulate} from "react-dom/test-utils";
 
 type DisplayPropsType = {
     count: number,
     maxValue: number,
     error: boolean,
-    settingActive: boolean,
 }
 
 const Display: React.FC<DisplayPropsType> = (props) => {
@@ -15,12 +13,9 @@ const Display: React.FC<DisplayPropsType> = (props) => {
 
     return (
         <div className={style.display}>
-            {
-                props.settingActive ?
-                    props.error ?
-                        <span className={style.error}>Incorrect value!</span>
-                        : <span className={style.active_message}>Enter values and press "set"</span>
-                    : <span className={countColor}>{props.count}</span>
+            {props.error
+                ? <span className={style.error}>Incorrect value!</span>
+                : <span className={countColor}>{props.count}</span>
             }
         </div>
     );
