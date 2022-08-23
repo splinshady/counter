@@ -7,6 +7,7 @@ type SettingsPropsType = {
     maxValue: number,
     initialCount: number,
     settingActive: boolean,
+    error: boolean,
     setInitialCount: (value: number) => void,
     setMaxValue: (value: number) => void,
     setCount: (value: number) => void,
@@ -32,7 +33,7 @@ const Settings: React.FC<SettingsPropsType> = (props) => {
     }, [])
 
     const InitialCountChangeHandler = (value: number) => {
-        if (value >= inputMaxValue) {
+        if (value >= inputMaxValue || value < 0) {
             props.setError(true)
         } else {
             props.setError(false)
@@ -62,6 +63,7 @@ const Settings: React.FC<SettingsPropsType> = (props) => {
                        value={inputMaxValue}
                        blurHandler={blurHandler}
                        focusHandler={focusHandler}
+                       error={props.error}
                 />
 
                 <Input name={'start value'}
@@ -69,10 +71,11 @@ const Settings: React.FC<SettingsPropsType> = (props) => {
                        value={inputInitialCount}
                        blurHandler={blurHandler}
                        focusHandler={focusHandler}
+                       error={props.error}
                 />
             </div>
             <div className={style.control}>
-                <Button name={'set'} callback={setSettings}/>
+                <Button disabled={props.error} name={'set'} callback={setSettings}/>
             </div>
         </div>
     );

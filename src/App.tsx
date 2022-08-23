@@ -38,6 +38,7 @@ function App() {
                       setError={setError}
                       setSettingActive={setSettingActive}
                       settingActive={settingActive}
+                      error={error}
             />
             <Counter count={count}
                      maxValue={maxValue}

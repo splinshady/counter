@@ -25,6 +25,7 @@ const Counter: React.FC<CounterPropsType> = (props) => {
                      count={props.count}
                      maxValue={props.maxValue}
                      initialCount={props.initialCount}
+                     settingActive={props.settingActive}
             />
         </div>
     );
