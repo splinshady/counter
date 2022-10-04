@@ -2,50 +2,52 @@ import React, {useEffect, useState} from 'react';
 import style from "./style.module.css";
 import Input from "./Input";
 import Button from "./Button";
+import {useDispatch, useSelector} from "react-redux";
+import {rootStateType} from "../state/store";
+import {
+    counterStateType,
+    setCount, setError,
+    setInitialCount,
+    setIsSettingActive,
+    setMaxValue
+} from "../reducers/counrer-reducer";
 
-type SettingsPropsType = {
-    maxValue: number,
-    initialCount: number,
-    settingActive: boolean,
-    error: boolean,
-    setInitialCount: (value: number) => void,
-    setMaxValue: (value: number) => void,
-    setCount: (value: number) => void,
-    setError: (value: boolean) => void,
-    setSettingActive: (value: boolean) => void,
-}
+type SettingsPropsType = {}
 
 const Settings: React.FC<SettingsPropsType> = (props) => {
-    const [inputInitialCount, setInputInitialCount] = useState(props.initialCount)
-    const [inputMaxValue, setInputMaxValue] = useState(props.maxValue)
+    const dispatch = useDispatch()
+    const state = useSelector<rootStateType, counterStateType>(state => state.counter)
+
+    const [inputInitialCount, setInputInitialCount] = useState(state.initialCount)
+    const [inputMaxValue, setInputMaxValue] = useState(state.maxValue)
 
     const setSettings = () => {
-        props.setInitialCount(inputInitialCount)
-        props.setMaxValue(inputMaxValue)
-        props.setCount(inputInitialCount)
-        props.setSettingActive(false)
+        dispatch(setInitialCount(inputInitialCount))
+        dispatch(setMaxValue(inputMaxValue))
+        dispatch(setCount(inputInitialCount))
+        dispatch(setIsSettingActive(false))
     }
 
-    useEffect(() => {
+/*    useEffect(() => {
         let initialCountStorage = localStorage.getItem('initialCount')
         let maxValueStorage = localStorage.getItem('maxValue')
         initialCountStorage && setInputInitialCount(JSON.parse(initialCountStorage))
         maxValueStorage && setInputMaxValue(JSON.parse(maxValueStorage))
-    }, [])
+    }, [])*/
 
     const InitialCountChangeHandler = (value: number) => {
         if (value >= inputMaxValue || value < 0) {
-            props.setError(true)
+            dispatch(setError(true))
         } else {
-            props.setError(false)
+            dispatch(setError(false))
         }
         setInputInitialCount(value)
     }
     const maxValueChangeHandler = (value: number) => {
         if (value <= inputInitialCount) {
-            props.setError(true)
+            dispatch(setError(true))
         } else {
-            props.setError(false)
+            dispatch(setError(false))
         }
         setInputMaxValue(value)
     }
@@ -56,17 +58,17 @@ const Settings: React.FC<SettingsPropsType> = (props) => {
                 <Input name={'max value'}
                        callback={maxValueChangeHandler}
                        value={inputMaxValue}
-                       error={props.error}
+                       error={state.error}
                 />
 
                 <Input name={'start value'}
                        callback={InitialCountChangeHandler}
                        value={inputInitialCount}
-                       error={props.error}
+                       error={state.error}
                 />
             </div>
             <div className={style.control}>
-                <Button disabled={props.error} name={'set'} callback={setSettings}/>
+                <Button disabled={state.error} name={'set'} callback={setSettings}/>
             </div>
         </div>
     );

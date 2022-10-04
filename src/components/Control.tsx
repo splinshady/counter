@@ -1,44 +1,43 @@
 import React, {useEffect, useState} from 'react';
 import Button from "./Button";
 import style from './style.module.css';
+import {useDispatch, useSelector} from "react-redux";
+import {rootStateType} from "../state/store";
+import {counterStateType, setCount, setIsSettingActive} from "../reducers/counrer-reducer";
 
-type ControlPropsType = {
-    setCount: (count: number) => void,
-    count: number,
-    maxValue: number,
-    initialCount: number,
-    settingActive: boolean,
-    setSettingActive: (value: boolean) => void,
-}
+type ControlPropsType = {}
 
 const Control: React.FC<ControlPropsType> = (props) => {
+    const dispatch = useDispatch()
+    const state = useSelector<rootStateType, counterStateType>(state => state.counter)
+
     const [disabled, setDisabled] = useState(false)
 
     useEffect(() => {
-        if (props.maxValue === props.count) {
+        if (state.maxValue === state.count) {
             setDisabled(true)
         } else {
             setDisabled(false)
         }
-    }, [props.count])
+    }, [state.count])
 
     const incrementCallback = () => {
-        props.maxValue > props.count && props.setCount(props.count + 1)
+        state.maxValue > state.count && dispatch(setCount(state.count + 1))
     }
 
     const resetCallback = () => {
-        props.setCount(props.initialCount)
+        dispatch(setCount(state.initialCount))
     }
 
     const activeSettingsCallback = () => {
-        props.setSettingActive(true)
+        dispatch(setIsSettingActive(true))
     }
 
 
     return (
         <div className={style.control}>
-            <Button disabled={disabled || props.settingActive} name={'inc'} callback={incrementCallback}/>
-            <Button disabled={props.settingActive} name={'reset'} callback={resetCallback}/>
+            <Button disabled={disabled || state.isSettingActive} name={'inc'} callback={incrementCallback}/>
+            <Button disabled={state.isSettingActive} name={'reset'} callback={resetCallback}/>
             <Button name={'set'} callback={activeSettingsCallback}/>
         </div>
     );
